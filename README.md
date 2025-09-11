@@ -1,7 +1,7 @@
 ## EMP in Docker (nginx + mariadb + php)
 
 ### run your php apps in seconds!
-**tl;dr:** set `.env`, copy data to `www/`, run with `up.sh`
+**tl;dr:** set `.env`, copy data to `www/`, run `up.sh`
 
 
 ### 0. get docker
