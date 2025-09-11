@@ -19,6 +19,11 @@ services:
       context: ./php-fpm
     restart: unless-stopped
     user: "${WWW_UID}:${WWW_GID}" # owner of ./www obtained by ./up.sh
+    environment:
+      MYSQL_HOST: "db"
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./www:/var/www/html
     depends_on:
