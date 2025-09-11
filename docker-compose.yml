@@ -1,0 +1,36 @@
+# use ./up.sh to run (this will set up file permissions for php)
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - ./db_data:/var/lib/mysql
+    # port is closed by default
+    # - "${MYSQL_PORT}:3306"
+
+  php:
+    build:
+      context: ./php-fpm
+    restart: unless-stopped
+    user: "${WWW_UID}:${WWW_GID}" # owner of ./www obtained by ./up.sh
+    volumes:
+      - ./www:/var/www/html
+    depends_on:
+      - db
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT}:80"
+    volumes:
+      - ./www:/var/www/html:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - php
