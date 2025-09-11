@@ -12,7 +12,7 @@ curl -fsSL https://get.docker.com/ | sudo bash
 
 ### 1. clone the repo
 ```
-git clone https://github.com/k-olya/emp.git my-php-app
+git clone --depth=1 https://github.com/k-olya/emp.git my-php-app
 ```
 
 
@@ -31,11 +31,11 @@ NGINX_PORT=8080
 you can use `openssl rand -base64 16` to generate strong passwords
 
 
-### 3. copy files (e.g. wordpress) to `www/` directory
+### 3. run `sudo ./up.sh`
+this will start the containers. to stop them run `sudo docker compose down`
 
 
-### 4. run `sudo ./up.sh`
-this will run the containers. to stop them run `sudo docker compose down`
+### 4. copy files (e.g. wordpress) to `www/` directory
 
 
 ### 5. ⚠️ USE `db` as MYSQL HOST in php apps
